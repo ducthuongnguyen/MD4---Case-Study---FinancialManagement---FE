@@ -30,7 +30,7 @@ function showEditForm(id) {
         type: "GET",
         url: "http://localhost:8080/categories/" + id,
         success: function (category) {
-            $("#category-type").val(category.parentCategory.id);
+            $(".category-type").val(category.parentCategory.id);
             $("#category-name").val(category.name);
         },
         error: function () {
@@ -48,7 +48,7 @@ function getCategoryType() {
             for (let i = 0; i < data.length; i++) {
                 str += `<option value="${data[i].id}">${data[i].name}</option>`
             }
-            $("#category-type").html(str);
+            $(".category-type").html(str);
         },
         error: function (error) {
             console.log(error)
@@ -125,10 +125,10 @@ function createCategory() {
         type: "POST",
         url: "http://localhost:8080/categories",
         data: JSON.stringify(newCategory),
-        success:function () {
+        success: function () {
             alert("Create successfully!")
             showAllCategory()
-        } ,
+        },
         error: function (error) {
             console.log(error)
         }
