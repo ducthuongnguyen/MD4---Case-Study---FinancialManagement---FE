@@ -219,8 +219,7 @@
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/"
-                               class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Add a category</a>
+                            <a class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white" onclick="showCreateForm()">Add a category</a>
                         </div>
                     </div>
                 </div>
@@ -289,7 +288,7 @@
             <!-- End footer -->
             <!-- ============================================================== -->
             <!-- Button trigger modal -->
-            <!-- Modal -->
+            <!-- Modal Edit -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -300,16 +299,19 @@
                         <div class="modal-body">
                             <form>
                                 <div class="mb-3">
-                                    <label for="category-name" class="col-form-label">Name:</label>
+                                    <label for="category-name" class="col-form-label">Category's name:</label>
                                     <input type="text" class="form-control" id="category-name" >
                                 </div>
-                                <select class="form-select" aria-label="Default select example" id="category-type">
-                                </select>
+                                <div>
+                                    <label for="category-name" class="col-form-label">Category's type:</label>
+                                    <select class="form-select category-type" aria-label="Default select example" class="category-type">
+                                    </select>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Send message</button>
+                            <button type="button" class="btn btn-primary" onclick="updateCategory()">Update</button>
                         </div>
                     </div>
                 </div>
@@ -317,6 +319,38 @@
         </div>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
+
+        <!-- Modal Create -->
+        <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="category-name" class="col-form-label">Category's name:</label>
+                                <input type="text" class="form-control" id="name" >
+                            </div>
+                            <div>
+                                <label for="category-name" class="col-form-label">Category's type:</label>
+                                <select class="form-select category-type" aria-label="Default select example" id="type">
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="createCategory()">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
         <!-- ============================================================== -->
 
     </div>
