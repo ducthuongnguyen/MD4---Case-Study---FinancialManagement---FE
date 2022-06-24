@@ -10,7 +10,7 @@ function showAllCategory() {
                                             <td>${i + 1}</td>
                                             <td>${categories[i].name}</td>
                                             <td>${categories[i].parentCategory.name}</td>
-                                            <td><button type="button" onclick="showEditForm(${categories[i].id})">Edit</button></td>
+                                            <td><button type="button" onclick="showEditForm(${categories[i].id})" class="btn btn-secondary"><i class="bi bi-pen"></i></button></td>
                                         </tr>`;
             }
             document.getElementById("category").innerHTML = str;
@@ -33,8 +33,8 @@ function showEditForm(id) {
             $("#category-type").val(category.parentCategory.id);
             $("#category-name").val(category.name);
         },
-        error: function (error) {
-            console.log(error)
+        error: function () {
+            alert("Error!!")
         }
     });
 }
@@ -48,7 +48,7 @@ function getCategoryType() {
             for (let i = 0; i < data.length; i++) {
                 str += `<option value="${data[i].id}">${data[i].name}</option>`
             }
-            $(".category-type").html(str);
+            $("#category-type").html(str);
         },
         error: function (error) {
             console.log(error)
@@ -76,6 +76,7 @@ function updateCategory(id) {
         url: "http://localhost:8080/categories?id=" + id,
         data: JSON.stringify(category),
         success: function () {
+            alert("Edit successfully!")
             showAllCategory()
         },
         error: function (error) {
@@ -124,7 +125,10 @@ function createCategory() {
         type: "POST",
         url: "http://localhost:8080/categories",
         data: JSON.stringify(newCategory),
-        success: showAllCategory(),
+        success:function () {
+            alert("Create successfully!")
+            showAllCategory()
+        } ,
         error: function (error) {
             console.log(error)
         }
