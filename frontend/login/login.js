@@ -1,5 +1,3 @@
-
-
     $(document).ready(function () {
     let signInForm = {};
     $('#btn-login').click(function () {
@@ -28,7 +26,7 @@
     window.sessionStorage.setItem('AVATAR_KEY', data.avatar);
     window.sessionStorage.setItem('ROLE_KEY', JSON.stringify(data.roles))
     console.log("type==", typeof (JSON.stringify(data.roles)))
-    window.location.href = 'hello.html';
+    window.location.href = '../home/index.html';
 }
 
 })
