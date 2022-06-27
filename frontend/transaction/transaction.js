@@ -1,8 +1,31 @@
+function findAllWallet() {
+    $.ajax({
+        type: "GET", url: "http://localhost:8081/wallets", success: function (data) {
+            let content = `<tr>
+                        <th>Wallet</th>
+                        <th>Amount</th>
+                    </tr>`;
+            for (let i = 0; i < data.length; i++) {
+
+                content += `<tr>
+            <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
+            <td>${data[i].moneyAmount}</a></td>
+        </tr>`;
+            }
+            document.getElementById("display").innerHTML = content;
+        }, error: function (error) {
+            console.log(error);
+        }
+    })
+}
+
 function showCreateForm() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/wallets", success: function (wallet) {
+        type: "GET", url: "http://localhost:8081/wallets",
+        success: function (wallet) {
             let content = "";
             for (let i = 0; i < wallet.length; i++) {
+                console.log(wallet)
                 content += `<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -12,18 +35,23 @@ function showCreateForm() {
                         </div>
                         <div class="modal-body">
 <!--                            <form id="createProduct">-->
+                                     
                                       <div class="input-group mb-3">
                                         <span class="input-group-text">Wallet</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"wallet\">` + getCategory(wallet) + `</select>` + `</div>` +
 
-                    `<div class="input-group mb-3">
-                            <button style="width: 232px" type="button" class="btn btn-danger btn-md" onclick="getExpense()">Expense</button>` + `<button style="width: 232px" type="button" class="btn btn-primary btn-md" onclick="getIncome()">Income</button>
+                    `<span style="color: red" id="childCategoryVali"></span>
+                                        <input id="check" hidden>
+                                        <div class="input-group mb-3">
+                            <button style="width: 232px" type="button" class="btn btn-danger btn-md" onclick="getExpense()">Expense</button>` + `<button style="width: 232px" type="button" class="btn btn-success btn-md" onclick="getIncome()">Income</button>
                                 </div>` +
 
                     `<div id="showCategory"></div>` +
 
-                    `<div class="input-group mb-3">
+                    `<span style="color: red" id="amountVali"></span>
+                                <div class="input-group mb-3">
+                                
                                     <span class="input-group-text">Amount</span>
-                                    <input type="number" class="form-control" placeholder="Enter the amount..." aria-label="name" aria-describedby="basic-addon1" id="moneyAmount">
+                                    <input pattern="[-+]?[0-9]" title="Username should only contain lowercase letters. e.g. john" type="number" class="form-control" placeholder="Enter the amount..." aria-label="name" aria-describedby="basic-addon1" id="moneyAmount">
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Note</span>
@@ -34,7 +62,7 @@ function showCreateForm() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="createNewTransaction()">Save</button>
+                            <button type="button" class="btn btn-success" onclick="createNewTransaction()">Save</button>
                         </div>
                     </div>
                 </div>
@@ -57,9 +85,17 @@ function getCategory(data) {
 }
 
 function createNewTransaction() {
+
     let wallet = document.getElementById("wallet").value;
     let childCategory = document.getElementById("childCategory").value;
+    if (childCategory===""){
+        document.getElementById("childCategoryVali").innerHTML = "Category not empty";
+    }
     let moneyAmount = document.getElementById("moneyAmount").value;
+    if (moneyAmount===""){
+        document.getElementById("amountVali").innerHTML = "Amount not empty";
+        showCreateForm();
+    }
     let note = document.getElementById("note").value;
     let pro = {
 
@@ -129,10 +165,11 @@ function createNewTransaction() {
 
 function getExpense() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/categories/getChildCategory/1", success: function (child1) {
+        type: "GET", url: "http://localhost:8081/categories/getChildCategory/1",
+        success: function (child1) {
             let str = `</div>
                                       <div class="input-group mb-3">
-                                        <span class="input-group-text">Tăng</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id= \"childCategory\">` + getCategory(child1) + `</select>` + `</div>`;
+                                        <span class="input-group-text" style="color: red">Expense</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id= \"childCategory\">` + getCategory(child1) + `</select>` + `</div>`;
             document.getElementById("showCategory").innerHTML = str
         }
 
@@ -143,7 +180,7 @@ function getIncome() {
     $.ajax({
         type: "GET", url: "http://localhost:8081/categories/getChildCategory/2", success: function (child2) {
             let str = `<div class="input-group mb-3">
-                                        <span class="input-group-text">Giảm</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"childCategory\">` + getCategory(child2) + `</select>` + `</div>`;
+                                        <span style="color: #0f5132" class="input-group-text">Income</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"childCategory\">` + getCategory(child2) + `</select>` + `</div>`;
             document.getElementById("showCategory").innerHTML = str;
         }
     })
@@ -320,12 +357,9 @@ function update(id) {
 
             let wallet = document.getElementById("wallet2").value;
             let childCategory = document.getElementById("childCategory3").value;
-            if (childCategory === null) {
-                childCategory = transactions.childCategory.id;
-            }
-
-
-
+            // if (childCategory === null) {
+            //     childCategory = transactions.childCategory.id;
+            // }
             let moneyAmount = +document.getElementById("moneyAmount2").value;
             let note = document.getElementById("note2").value;
 
@@ -391,26 +425,7 @@ function update(id) {
     })
 }
 
-function findAllWallet() {
-    $.ajax({
-        type: "GET", url: "http://localhost:8081/wallets", success: function (data) {
-            let content = `<tr>
-                        <th>Wallet</th>
-                        <th>Amount</th>
-                    </tr>`;
-            for (let i = 0; i < data.length; i++) {
 
-                content += `<tr>
-            <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
-            <td>${data[i].moneyAmount}</a></td>
-        </tr>`;
-            }
-            document.getElementById("display").innerHTML = content;
-        }, error: function (error) {
-            console.log(error);
-        }
-    })
-}
 
 findAllWallet();
 
@@ -434,15 +449,22 @@ function findAllTransactionByWallet(id) {
 }
 
 function findAllByDateBetween(){
+    document.getElementById("outflow").innerHTML = "";
+    document.getElementById("inflow").innerHTML = "";
     let from = document.getElementById("from").value;
     let to = document.getElementById("to").value;
     $.ajax({
         type: "GET",
         url: "http://localhost:8081/transactions/search-by-create-date?id="+idWallet +"&from=" +from + "&to=" +to,
         success: function (data) {
+            if (data.length===0){
+                document.getElementById("outflow").innerHTML = "No Transaction"
+            }
             let sumIn = 0;
             let sumOut = 0;
+            display(data)
             for (let i = 0; i < data.length; i++) {
+
                 if (data[i].childCategory.parentCategory.id === 1&&data[i].wallet.id === idWallet){
                         sumOut += data[i].moneyAmount;
                 }
@@ -453,7 +475,7 @@ function findAllByDateBetween(){
 
             document.getElementById("outflow").innerHTML = "Outflow: "+  sumOut.toLocaleString() + " " + data[0].wallet.moneyType.name;
             document.getElementById("inflow").innerHTML =  "Inflow:    " + sumIn.toLocaleString() + " " + data[0].wallet.moneyType.name;
-            display(data)
+
         }
     })
 
