@@ -301,7 +301,7 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="category-name" class="col-form-label">Category's name:</label>
-                                    <input type="text" class="form-control" id="category-name" >
+                                    <input type="text" class="form-control" id="category-name" oninput="checkEditName()" placeholder="Category name must be unique and blank..." >
                                 </div>
                                 <div>
                                     <label for="category-name" class="col-form-label">Category's type:</label>
@@ -312,7 +312,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="updateCategory()">Update</button>
+                            <button type="button" class="btn btn-primary" onclick="updateCategory()" id="edit-btn">Update</button>
                         </div>
                     </div>
                 </div>
@@ -326,14 +326,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Category</h5>
+                        <h5 class="modal-title">Create Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="form-create">
                             <div class="mb-3">
                                 <label for="category-name" class="col-form-label">Category's name:</label>
-                                <input type="text" class="form-control" id="name" >
+                                <input type="text" class="form-control" id="name" oninput="checkName()" placeholder="Category name must be unique and blank...">
                             </div>
                             <div>
                                 <label for="category-name" class="col-form-label">Category's type:</label>
@@ -344,7 +344,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="createCategory()">Create</button>
+                        <button type="button" class="btn btn-primary" onclick="createCategory()" id="create-btn">Create</button>
                     </div>
                 </div>
             </div>
@@ -375,6 +375,7 @@
     <!--Custom JavaScript -->
     <script src="../../js/custom.js"></script>
     <script src="category.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 
 </body>
 

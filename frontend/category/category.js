@@ -24,6 +24,7 @@ function showAllCategory() {
 let editId = 0;
 
 function showEditForm(id) {
+    document.getElementById("edit-btn").style.display = "none";
     editId = id;
     $('#exampleModal').modal('show');
     $.ajax({
@@ -85,26 +86,8 @@ function updateCategory(id) {
     })
 }
 
-// function getCategoryName() {
-//     $.ajax({
-//         type: "GET",
-//         url: "http://localhost:8080/categories",
-//         success: function (data) {
-//             console.log("goi ham cat")
-//             console.log(data)
-//             let str = "";
-//             for (let i = 0; i < data.length; i++) {
-//                 str += `<option value="${data[i].id}">${data[i].name}</option>`
-//             }
-//             $("#name").html(str);
-//         },
-//         error: function (error) {
-//             console.log(error)
-//         }
-//     })
-// }
-
 function showCreateForm() {
+    document.getElementById("create-btn").style.display = "none";
     $('#create').modal('show');
 }
 
@@ -117,6 +100,16 @@ function createCategory() {
             id: type
         }
     };
+    $("#create").validate({
+        rules: {
+            name: {
+                required: true
+            }
+        },
+        submitHandler: function () {
+            console.log("xxx")
+        }
+    });
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -135,5 +128,26 @@ function createCategory() {
     });
 }
 
+function checkName() {
+    let name = document.getElementById("name").value;
+    if (name==""){
+        document.getElementById("create-btn").style.display = "none";
+        document.getElementById("name").style.borderColor="red";
+    } else {
+        document.getElementById("name").style.borderColor="green";
+        document.getElementById("create-btn").style.display = "block";
+    }
+}
+
+function checkEditName() {
+    let categoryName = document.getElementById("category-name").value;
+    if (categoryName==""){
+        document.getElementById("edit-btn").style.display = "none";
+        document.getElementById("category-name").style.borderColor="red";
+    } else {
+        document.getElementById("category-name").style.borderColor="green";
+        document.getElementById("edit-btn").style.display = "block";
+    }
+}
 getCategoryType()
 showAllCategory()
