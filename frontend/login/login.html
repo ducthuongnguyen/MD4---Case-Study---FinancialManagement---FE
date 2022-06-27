@@ -13,18 +13,20 @@
 <br>
 <div class="cont">
     <div class="form sign-in">
-        <h2 >Welcome</h2>
+        <h2 >Welcome</h2><br>
+
         <label>
-            <input name="email" id="email" type="email" class="form-control" placeholder="Email">
+            <input name="name" id="namelogin" type="text" class="form-control" placeholder="Enter your name">
             <!--            <input type="email" />-->
         </label>
         <label>
             <!--            <span>Password</span>-->
-            <input name="password" id="password" type="password" class="form-control" placeholder="password">
+            <input name="password" id="passwordlogin" type="password" class="form-control" placeholder="Password">
             <!--            <input type="password" />-->
         </label>
-        <p id="status_login"></p>
-        <button id="btn-login" type="button" class="submit" >LogIn</button>
+        <div> <p style="color: #2a2a2a" id="status_login"></p></div>
+
+        <button id="btn-login" type="button" class="submit"  onclick="logIn()">LogIn</button>
 
     </div>
 
@@ -45,33 +47,34 @@
             </div>
         </div>
         <div class="form sign-up">
-            <h2  id="status" style="color: chartreuse ">Create your Account</h2>
+            <h2  id="status" style="color: #333333 ">Create your Account</h2>
 
             <br>
             <label>
                 <span id="nameStatus">Name</span>
-                <input name="name" id="name" class="form-control" type="text">
+                <input name="name" id="name" class="form-control" type="text" placeholder="Not empty from 3 to 50 characters">
                 <!--                <input type="text" />-->
             </label>
             <label>
-                <span id="emailStatus">Email</span>
-                <input name="email" id="newEmail" class="form-control"  type="email">
+                <span >User Name</span>
+                <input name="name" id="username" class="form-control" type="text"placeholder="Not empty from 3 to 50 characters">
+                <!--                <input type="text" />-->
+            </label>
+            <label>
+                <span id="emailStatus" >Email</span>
+                <input name="email" id="email" class="form-control"  type="email" placeholder="Form email like ..@gmail.com">
                 <!--                <input type="email" />-->
             </label>
             <label>
                 <span >Password </span>
-                <input name="password" id="newPassword" class="form-control" type="password">
+                <input name="password" id="password" class="form-control" type="password" placeholder="At least 6 characters ">
                 <!--                <input type="password" />-->
             </label>
-            <label>
-                <span id="passwordStatus">Password Confirm</span>
-                <input name="passwordConfirm" id="passwordConfirm" class="form-control" type="password">
-                <!--                <input type="password" />-->
-            </label>
-            <button id="btn-create-account" type="submit" class="submit"> Create Account
+            <button id="btn-create-account" type="submit" class="submit" onclick="signUp()"> Create Account
             </button>
         </div>
     </div>
+
 </div>
 <script>
     let status=document.getElementById("status")
