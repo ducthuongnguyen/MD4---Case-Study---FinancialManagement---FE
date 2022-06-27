@@ -401,7 +401,6 @@
 <!--Custom JavaScript -->
 <script src="../../js/custom.js"></script>
 
-<script src="../../js/teacher/showListStudent.js"></script>
 <script>
     let data1 = localStorage.getItem("data");
     let a = JSON.parse(data1)
@@ -412,7 +411,7 @@
     function showWalletById(id){
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/wallets/" + id,
+            url: "http://localhost:8080/wallets/" + id,
             success: function (wallet) {
                 document.getElementById("showWallet").innerHTML =wallet.name;
                 document.getElementById("showWallet1").innerHTML = wallet.moneyAmount.toLocaleString() + " " + wallet.moneyType.name;

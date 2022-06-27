@@ -1,12 +1,13 @@
 function findAllWallet() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/wallets", success: function (data) {
+        type: "GET",
+        url: "http://localhost:8080/wallets",
+        success: function (data) {
             let content = `<tr>
                         <th>Wallet</th>
                         <th>Amount</th>
                     </tr>`;
             for (let i = 0; i < data.length; i++) {
-
                 content += `<tr>
             <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
             <td>${data[i].moneyAmount}</a></td>
@@ -21,11 +22,10 @@ function findAllWallet() {
 
 function showCreateForm() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/wallets",
+        type: "GET", url: "http://localhost:8080/wallets",
         success: function (wallet) {
             let content = "";
             for (let i = 0; i < wallet.length; i++) {
-                console.log(wallet)
                 content += `<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -88,14 +88,10 @@ function createNewTransaction() {
 
     let wallet = document.getElementById("wallet").value;
     let childCategory = document.getElementById("childCategory").value;
-    if (childCategory===""){
+    if (childCategory === "") {
         document.getElementById("childCategoryVali").innerHTML = "Category not empty";
     }
     let moneyAmount = document.getElementById("moneyAmount").value;
-    if (moneyAmount===""){
-        document.getElementById("amountVali").innerHTML = "Amount not empty";
-        showCreateForm();
-    }
     let note = document.getElementById("note").value;
     let pro = {
 
@@ -110,15 +106,16 @@ function createNewTransaction() {
             'Accept': 'application/json', 'Content-Type': 'application/json',
         },
         type: 'POST',
-        url: 'http://localhost:8081/transactions/create',
+        url: 'http://localhost:8080/transactions/create',
         data: JSON.stringify(pro),
         success: function (data) {
+            console.log("-----------------")
             let id = data.wallet.id;
             let idChild = data.childCategory.id;
             $.ajax({
-                type: "GET", url: "http://localhost:8081/wallets/" + id, success: function (wallet) {
+                type: "GET", url: "http://localhost:8080/wallets/" + id, success: function (wallet) {
                     $.ajax({
-                        type: "GET", url: "http://localhost:8081/categories/" + idChild, success: function (child) {
+                        type: "GET", url: "http://localhost:8080/categories/" + idChild, success: function (child) {
                             let idParent = child.parentCategory.id;
                             let amountWallet = wallet.moneyAmount;
                             let amountWalletNew;
@@ -142,7 +139,7 @@ function createNewTransaction() {
                                     'Accept': 'application/json', 'Content-Type': 'application/json',
                                 },
                                 type: 'PUT',
-                                url: "http://localhost:8081/wallets/" + id,
+                                url: "http://localhost:8080/wallets/editWallet/" + id,
                                 data: JSON.stringify(pro),
                                 success: function () {
 
@@ -165,7 +162,7 @@ function createNewTransaction() {
 
 function getExpense() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/categories/getChildCategory/1",
+        type: "GET", url: "http://localhost:8080/categories/getChildCategory/1",
         success: function (child1) {
             let str = `</div>
                                       <div class="input-group mb-3">
@@ -178,7 +175,7 @@ function getExpense() {
 
 function getIncome() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/categories/getChildCategory/2", success: function (child2) {
+        type: "GET", url: "http://localhost:8080/categories/getChildCategory/2", success: function (child2) {
             let str = `<div class="input-group mb-3">
                                         <span style="color: #0f5132" class="input-group-text">Income</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"childCategory\">` + getCategory(child2) + `</select>` + `</div>`;
             document.getElementById("showCategory").innerHTML = str;
@@ -188,7 +185,7 @@ function getIncome() {
 
 function findAllTransaction() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/transactions", success: function (data) {
+        type: "GET", url: "http://localhost:8080/transactions", success: function (data) {
             console.log(data)
             display(data)
         }, error: function (error) {
@@ -232,7 +229,7 @@ function showEditForm(id) {
     idEdit = id;
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/transactions/" + id,
+        url: "http://localhost:8080/transactions/" + id,
         success: function (transaction) {
             $("#wallet2").val(transaction.wallet.id);
             $("#childCategory3").val(transaction.childCategory.id);
@@ -245,7 +242,7 @@ function showEditForm(id) {
 function getWallet() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/wallets",
+        url: "http://localhost:8080/wallets",
         success: function (data) {
             let str = "";
             for (let i = 0; i < data.length; i++) {
@@ -261,11 +258,11 @@ getWallet();
 function deleteTransaction(id) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/transactions/" + id,
+        url: "http://localhost:8080/transactions/" + id,
         success: function (transaction) {
             $.ajax({
                 type: "DELETE", //tên API
-                url: "http://localhost:8081/transactions/" + id, //xử lý khi thành công
+                url: "http://localhost:8080/transactions/" + id, //xử lý khi thành công
                 success: function () {
                     let amountWallet = transaction.wallet.moneyAmount;
                     let amountTransaction = transaction.moneyAmount;
@@ -300,7 +297,7 @@ function deleteTransaction(id) {
                             'Accept': 'application/json', 'Content-Type': 'application/json',
                         },
                         type: 'PUT',
-                        url: "http://localhost:8081/wallets/" + idWallet,
+                        url: "http://localhost:8080/wallets/editWallet/" + idWallet,
                         data: JSON.stringify(pro),
                         success: function () {
 
@@ -320,7 +317,7 @@ function deleteTransaction(id) {
 
 function getExpense1() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/categories/getChildCategory/1", success: function (child1) {
+        type: "GET", url: "http://localhost:8080/categories/getChildCategory/1", success: function (child1) {
 
             let str = `</div>
                                       <div class="input-group mb-3">
@@ -333,7 +330,7 @@ function getExpense1() {
 
 function getIncome1() {
     $.ajax({
-        type: "GET", url: "http://localhost:8081/categories/getChildCategory/2", success: function (child2) {
+        type: "GET", url: "http://localhost:8080/categories/getChildCategory/2", success: function (child2) {
             let str = `<div class="input-group mb-3">
                                         <span class="input-group-text">Giảm</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"childCategory2\">` + getCategory(child2) + `</select>` + `</div>`;
             document.getElementById("showCategory1").innerHTML = str;
@@ -347,7 +344,7 @@ function update(id) {
     id = idEdit;
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/transactions/" + id,
+        url: "http://localhost:8080/transactions/" + id,
         success: function (transactions) {
 
             let idParent = transactions.childCategory.parentCategory.id;
@@ -363,10 +360,10 @@ function update(id) {
             let moneyAmount = +document.getElementById("moneyAmount2").value;
             let note = document.getElementById("note2").value;
 
-            if (idParent===1){
+            if (idParent === 1) {
                 amountWalletNew = amountWallet + amountTransaction - moneyAmount;
             }
-            if (idParent===2){
+            if (idParent === 2) {
                 amountWalletNew = (amountWallet - amountTransaction) + moneyAmount;
             }
 
@@ -385,7 +382,7 @@ function update(id) {
                     'Content-Type': 'application/json',
                 },
                 type: 'PUT',
-                url: 'http://localhost:8081/transactions/' + id,
+                url: 'http://localhost:8080/transactions/' + id,
                 data: JSON.stringify(pro),
                 success: function () {
                     let idNew = transactions.wallet.id;
@@ -407,24 +404,23 @@ function update(id) {
                             'Accept': 'application/json', 'Content-Type': 'application/json',
                         },
                         type: 'PUT',
-                        url: "http://localhost:8081/wallets/" + idNew,
+                        url: "http://localhost:8080/wallets/editWallet/" + idNew,
                         data: JSON.stringify(pro),
                         success: function () {
-                    findAllTransactionByWallet(idWallet);
+                            findAllTransactionByWallet(idWallet);
                             findAllWallet(idWallet);
                             getWallet();
 
-                },
-                error: function (error) {
-                    console.log(error)
-                }
-            })
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    })
                 }
             })
         }
     })
 }
-
 
 
 findAllWallet();
@@ -436,7 +432,7 @@ function findAllTransactionByWallet(id) {
     //     success: function (wallet) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/wallets/transaction-by-wallet/" + id,
+        url: "http://localhost:8080/wallets/transaction-by-wallet/" + id,
         success: function (data) {
             // localStorage.setItem("data", JSON.stringify(wallet));
             localStorage.setItem("data", JSON.stringify(data));
@@ -448,16 +444,16 @@ function findAllTransactionByWallet(id) {
 
 }
 
-function findAllByDateBetween(){
+function findAllByDateBetween() {
     document.getElementById("outflow").innerHTML = "";
     document.getElementById("inflow").innerHTML = "";
     let from = document.getElementById("from").value;
     let to = document.getElementById("to").value;
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/transactions/search-by-create-date?id="+idWallet +"&from=" +from + "&to=" +to,
+        url: "http://localhost:8080/transactions/search-by-create-date?id=" + idWallet + "&from=" + from + "&to=" + to,
         success: function (data) {
-            if (data.length===0){
+            if (data.length === 0) {
                 document.getElementById("outflow").innerHTML = "No Transaction"
             }
             let sumIn = 0;
@@ -465,16 +461,16 @@ function findAllByDateBetween(){
             display(data)
             for (let i = 0; i < data.length; i++) {
 
-                if (data[i].childCategory.parentCategory.id === 1&&data[i].wallet.id === idWallet){
-                        sumOut += data[i].moneyAmount;
+                if (data[i].childCategory.parentCategory.id === 1 && data[i].wallet.id === idWallet) {
+                    sumOut += data[i].moneyAmount;
                 }
-                if (data[i].childCategory.parentCategory.id === 2&&data[i].wallet.id === idWallet){
+                if (data[i].childCategory.parentCategory.id === 2 && data[i].wallet.id === idWallet) {
                     sumIn += data[i].moneyAmount;
                 }
             }
 
-            document.getElementById("outflow").innerHTML = "Outflow: "+  sumOut.toLocaleString() + " " + data[0].wallet.moneyType.name;
-            document.getElementById("inflow").innerHTML =  "Inflow:    " + sumIn.toLocaleString() + " " + data[0].wallet.moneyType.name;
+            document.getElementById("outflow").innerHTML = "Outflow: " + sumOut.toLocaleString() + " " + data[0].wallet.moneyType.name;
+            document.getElementById("inflow").innerHTML = "Inflow:    " + sumIn.toLocaleString() + " " + data[0].wallet.moneyType.name;
 
         }
     })
