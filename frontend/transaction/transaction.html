@@ -321,16 +321,17 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Wallet</span>
-                                <select class="form-select" aria-label="Default select example" id="wallet2"
-                                        name="wallet">
-                                    <option selected>Wallet</option>
-                                </select>
+<!--                                <select class="form-select" aria-label="Default select example" id="wallet2"-->
+<!--                                        name="wallet">-->
+<!--                                    <option selected>Wallet</option>-->
+<!--                                </select>-->
+                                <input class="form-select" aria-label="Default select example" id="wallet2">
                             </div>
                             <div class="input-group mb-3">
-                                <button style="width: 232px" type="button" class="btn btn-danger btn-md"
+                                <button id="expense" style="width: 232px" type="button" class="btn btn-danger btn-md"
                                         onclick="getExpense1()">Expense
                                 </button>
-                                <button style="width: 232px" type="button" class="btn btn-primary btn-md"
+                                <button id="income" style="width: 232px" type="button" class="btn btn-success btn-md"
                                         onclick="getIncome1()">Income
                                 </button>
 
@@ -349,7 +350,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                     </button>
-                                    <button type="button" class="btn btn-primary" onclick="update()">Edit</button>
+                                    <button type="button" class="btn btn-success" onclick="update()">Edit</button>
                                 </div>
                             </div>
                         </div>
@@ -412,7 +413,7 @@
     function showWalletById(id){
         $.ajax({
             type: "GET",
-            url: "http://localhost:8081/wallets/" + id,
+            url: "http://localhost:8080/wallets/" + id,
             success: function (wallet) {
                 document.getElementById("showWallet").innerHTML =wallet.name;
                 document.getElementById("showWallet1").innerHTML = wallet.moneyAmount.toLocaleString() + " " + wallet.moneyType.name;
