@@ -11,7 +11,7 @@
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Ample Admin Lite Template by WrapPixel</title>
+    <title>Home</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../plugins/images/favicon.png">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../../plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
     <!-- Custom CSS -->
     <link href="../../css/style.min.css" rel="stylesheet">
-    <script src="index.js"></script>
+
     <style>
         .dropdown {
             position: relative;
@@ -39,6 +39,9 @@
 
         .dropdown:hover .dropdown-content {
             display: block;
+        }
+        #updateToPro, #updateToPro1 {
+            background: #4F8657;
         }
     </style>
 </head>
@@ -138,12 +141,15 @@
                         <div class="dropdown">
                             <span>
                                 <img src="../../plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                     class="img-circle"><span class="text-white font-medium">Steave</span>
+                                     class="img-circle">
+                                <span class="text-white font-medium"  id="renameUser">Steve</span>
                                 <i class="fa fa-angle-down"></i>
                             </span>
                             <div class="dropdown-content">
-                                <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Log out</a></li>
-                                <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Change my password</a></li>
+                                <input  type="button" value="Log Out" onclick="showFormChangePassword()">
+                                <input  type="button" value="Change Password" onclick="showFormChangePassword()">
+<!--                                <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Log out</a></li>-->
+<!--                                <li><a onclick="showFormChangePassword()"><i class="fa fa-sign-in" aria-hidden="true"></i>Change my password</a></li>-->
                             </div>
                         </div>
                         <!-- ============================================================== -->
@@ -181,17 +187,10 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../transaction/transaction.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../wallet/wallet.html"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Wallet</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../../fontawesome.html"
-                                aria-expanded="false">
-                                <i class="fa fa-font" aria-hidden="true"></i>
-                                <span class="hide-menu">Transaction</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -202,14 +201,14 @@
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../mycategory/mycategory.html"
                                 aria-expanded="false">
                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">Category</span>
+                                <span class="hide-menu">My Category</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../wallet/wallet.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../category/category.html"
                                 aria-expanded="false">
                                 <i class="fa fa-columns" aria-hidden="true"></i>
-                                <span class="hide-menu">Blank Page</span>
+                                <span class="hide-menu">All Categories</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -221,7 +220,7 @@
                         </li>
                         <li class="text-center p-20 upgrade-btn">
                             <a href="https://www.wrappixel.com/templates/ampleadmin/"
-                                class="btn d-grid btn-danger text-white" target="_blank">
+                                class="btn d-grid text-white" id="updateToPro" target="_blank">
                                 Upgrade to Pro</a>
                         </li>
                     </ul>
@@ -252,8 +251,7 @@
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
                             <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                                to Pro</a>
+                                class="btn   d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white" id="updateToPro1">Upgrade to Pro</a>
                         </div>
                     </div>
                 </div>
@@ -265,7 +263,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-
+                <input type="button" class="btn btn-success  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white" value="Wallet" onclick="showFormWallet()">
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -291,6 +289,7 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="../../plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../../bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../js/app-style-switcher.js"></script>
@@ -310,6 +309,8 @@
     let data = window.sessionStorage.getItem('data');
     console.log(JSON.parse(data));
 </script>
+    <script src="index.js"></script>
+<script src="../login/login.js"></script>
 </body>
 
 </html>

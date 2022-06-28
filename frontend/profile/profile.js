@@ -107,7 +107,7 @@ $(document).ready(function () {
         console.log('editForm == ', editForm)
         $.ajax({
             async: false,
-            url: 'http://localhost:8080/users/edit/'+id,
+            url: 'http://localhost:8081/users/edit/'+id,
             method: 'PUT',
             data: editFormOBJ,
             contentType: 'application/json; charset=utf8',

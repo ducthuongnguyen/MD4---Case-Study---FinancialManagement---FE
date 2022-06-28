@@ -102,3 +102,7 @@ function changePassword(){
         }
     })
 }
+
+function showFormChangePassword(){
+    window.location.href = '../login/changePassword.html';
+}

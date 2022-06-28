@@ -3,13 +3,12 @@ function displayTable(data) {
     for (let i = 0; i < data.length; i++) {
         content += `<tr>
                        <th scope="row">${i + 1}</th>
-                       <th>${data[i].name}</th>
-                       <td>${data[i].icon}</td>
+                       <th><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></th>
                        <td>${data[i].moneyAmount}</td>
                        <td>${data[i].moneyType.name}</td>
                        <td>
-                            <button onclick="showEditWallet(${data[i].id})">Edit</button>
-                            <button onclick="deleteWallet(${data[i].id})">Delete</button>
+                            <button type="button" class="btn btn-success" onclick="showEditWallet(${data[i].id})"><i class="bi bi-pen-fill"></i></button>
+                            <button type="button" class="btn btn-success" onclick="deleteWallet(${data[i].id})"><i class="bi bi-trash3-fill"></i></button>
                        </td>
      </tr>`
     }
@@ -146,7 +145,7 @@ getMoneyTypeEdit();
 
 
 function addWallet() {
-    console.log("????")
+    $('#editWallet').modal('hide');
     let IdUser = window.sessionStorage.getItem("IDUSER_KEY");
     let token = window.sessionStorage.getItem("TOKEN_KEY");
     console.log("a==", token)
@@ -218,6 +217,7 @@ function findByWalletName() {
     })
 
 }
+
 
 getMoneyType();
 showListWallet();

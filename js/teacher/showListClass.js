@@ -1,7 +1,7 @@
 function showTeacher() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/teacher",
+        url: "http://localhost:8081/teacher",
         success: function (teachers) {
             let content = `<option selected disabled>Name of Teacher...</option>`;
             for (let i = 0; i < teachers.length; i++) {
@@ -15,7 +15,7 @@ function showTeacher() {
 function showListClass() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/teacher/list-class",
+        url: "http://localhost:8081/teacher/list-class",
         success: function (students) {
             let content = `<tr>
                                         <th class="border-top-0">#</th>
@@ -38,7 +38,7 @@ function getListClassByTeacherId() {
     let id = $("#getTeacher").val();
     $.ajax({
         type: "GET",
-        url: `http://localhost:8080/teacher/list-class/${id}`,
+        url: `http://localhost:8081/teacher/list-class/${id}`,
         success: function (students) {
             let content = `<tr>
                                             <th class="border-top-0">#</th>

@@ -2,7 +2,7 @@ function showAllCategory() {
     let str = "";
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/categories",
+        url: "http://localhost:8081/categories",
         success: function (categories) {
             console.log(categories)
             for (let i = 0; i < categories.length; i++) {
@@ -29,7 +29,7 @@ function showEditForm(id) {
     $('#exampleModal').modal('show');
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/categories/" + id,
+        url: "http://localhost:8081/categories/" + id,
         success: function (category) {
             $(".category-type").val(category.parentCategory.id);
             $("#category-name").val(category.name);
@@ -43,7 +43,7 @@ function showEditForm(id) {
 function getCategoryType() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/parent-categories",
+        url: "http://localhost:8081/parent-categories",
         success: function (data) {
             let str = "";
             for (let i = 0; i < data.length; i++) {
@@ -74,7 +74,7 @@ function updateCategory(id) {
             'Content-Type': 'application/json'
         },
         type: "PUT",
-        url: "http://localhost:8080/categories?id=" + id,
+        url: "http://localhost:8081/categories?id=" + id,
         data: JSON.stringify(category),
         success: function () {
             alert("Edit successfully!")
@@ -116,7 +116,7 @@ function createCategory() {
             'Content-Type': 'application/json'
         },
         type: "POST",
-        url: "http://localhost:8080/categories",
+        url: "http://localhost:8081/categories",
         data: JSON.stringify(newCategory),
         success: function () {
             alert("Create successfully!")
