@@ -18,6 +18,7 @@ function logIn() {
             if (data.status == 202) {
                 console.log("ID=",JSON.stringify(data.id))
                 document.getElementById('status_login').innerHTML = 'Login Failed! Please try again!';
+                document.getElementById('status_login').style.color = 'red';
                 return
             }
             window.sessionStorage.removeItem('TOKEN_KEY');
@@ -61,9 +62,11 @@ function signUp() {
             console.log('data ===', data);
             if (JSON.stringify(data) == JSON.stringify(noUser)) {
                 document.getElementById('status').innerHTML = 'The username is existed! Please try again!'
+                document.getElementById("status").style.color = "red";
             }
             if (JSON.stringify(data) == JSON.stringify(createSuccess)) {
                 document.getElementById('status').innerHTML = 'Create User Account Success!'
+                document.getElementById("status").style.color = "green";
             }
         }
     })

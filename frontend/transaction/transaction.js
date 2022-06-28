@@ -3,15 +3,32 @@ function findAllWallet() {
         type: "GET",
         url: "http://localhost:8081/wallets",
         success: function (data) {
-            let content = `<tr>
-                        <th>Wallet</th>
-                        <th>Amount</th>
-                    </tr>`;
+            let content = ``;
             for (let i = 0; i < data.length; i++) {
-                content += `<tr>
-            <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
-            <td>${data[i].moneyAmount}</a></td>
-        </tr>`;
+        //         content += `<tr>
+        //     <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
+        //     <td>${data[i].moneyAmount}</a></td>
+        // </tr>`;
+                content += `  <div  class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                   <h1 class="box-title"><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></h1>
+                                
+                                </li>
+                                <li class="ms-auto"><span style="font-size: large" class="counter text-success">${data[i].moneyType.name}</span></li>
+                            </ul>
+                            
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div><img width="100px" height="70" src="/chart.png">
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-danger">${data[i].moneyAmount.toLocaleString()}</span></li>
+                            </ul>
+                        </div>
+                        </div>
+                     `
             }
             document.getElementById("display").innerHTML = content;
         }, error: function (error) {
@@ -494,4 +511,37 @@ function findAllByDateBetween() {
     })
 
 }
+
+function findAllWallet1() {
+    $.ajax({
+        type: "GET", url: "http://localhost:8081/wallets", success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++) {
+
+        //         content += `<tr>
+        //     <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
+        //     <td>${data[i].moneyAmount}</a></td>
+        // </tr>`;
+                content += `  <div  class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title"><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><canvas width="67" height="30"
+                                                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-success">${data[i].moneyAmount}</span></li>
+                            </ul>
+                        </div>
+                        </div>
+                     `
+            }
+            document.getElementById("display").innerHTML = content;
+        }, error: function (error) {
+            console.log(error);
+        }
+    })
+}
+
 
