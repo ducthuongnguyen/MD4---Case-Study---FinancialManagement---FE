@@ -44,6 +44,8 @@
             background: #4F8657;
         }
     </style>
+    <script src="../wallet/wallet.js"></script>
+
 
 </head>
 
@@ -141,13 +143,13 @@
 
                         <div class="dropdown">
                             <span>
-                                <img src="../../plugins/images/users/varun.jpg" alt="user-img" width="36"
+                                <img style="border-radius: 100%" src="https://pdp.edu.vn/wp-content/uploads/2021/01/hinh-anh-cute-de-thuong.jpg" alt="user-img" width="36"
                                      class="img-circle">
                                 <span class="text-white font-medium"  id="renameUser">Steve</span>
                                 <i class="fa fa-angle-down"></i>
                             </span>
                             <div class="dropdown-content">
-                                <input  type="button" value="Log Out" onclick="showFormChangePassword()">
+                                <input  type="button" value="Log Out" onclick="logOut()">
                                 <input  type="button" value="Change Password" onclick="showFormChangePassword()">
 <!--                                <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Log out</a></li>-->
 <!--                                <li><a onclick="showFormChangePassword()"><i class="fa fa-sign-in" aria-hidden="true"></i>Change my password</a></li>-->
@@ -174,7 +176,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
                                 aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -244,21 +246,109 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Dashboard</h4>
+                        <h4 class="page-title">My Wallet</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn   d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white" id="updateToPro1">Upgrade to Pro</a>
+                            <a
+                                    target="_blank"
+                                    class="btn btn-success  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white"
+                                    onclick="showCreateWallet()">Add New Wallet
+                            </a>
                         </div>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+<!--            <div class="modal fade" id="addWallet" tabindex="-1"-->
+<!--                 aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                <div class="modal-dialog">-->
+<!--                    <div class="modal-content">-->
+<!--                        <div class="modal-header">-->
+<!--                            <h5 class="modal-title" id="exampleModalLabel">Add Wallet</h5>-->
+<!--                            <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+<!--                                    aria-label="Close"></button>-->
+<!--                        </div>-->
+<!--                        <div class="modal-body">-->
+<!--                            <img src="../../img/cute123.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 col-lg-6 block-contact">-->
+<!--                            <form>-->
+<!--                                <div class="form-group">-->
+<!--                                    <input type="text" class="form-control" placeholder="Name"-->
+<!--                                           id="name">-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <input type="text" class="form-control" placeholder="Icon"-->
+<!--                                           id="icon">-->
+<!--                                </div>-->
+<!--                                <div class="form-group">-->
+<!--                                    <input type="number" class="form-control" placeholder="Money Amount"-->
+<!--                                           id="moneyAmount">-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;                                                <div class="form-group">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                                    <input type="number" class="form-control" placeholder="User ID"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                                           id="appUser">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                                <div>-->
+<!--                                    <label class="col-form-label">Money type:</label>-->
+<!--                                    <select class="form-select category-type"-->
+<!--                                            aria-label="Default select example" id="moneyType">-->
+<!--                                        <option selected>Choose Money Type...</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
 
+
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                        <div class="modal-footer">-->
+<!--                            <button type="submit" class="btn btn-success" pull-left-->
+<!--                                    onclick="addWallet()">Submit-->
+<!--                            </button>-->
+<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">-->
+<!--                                Close-->
+<!--                            </button>-->
+<!--                            &lt;!&ndash;                                                <button type="button" class="btn btn-primary">Save changes</button>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="modal fade" id="addWallet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create Wallet</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label  class="col-form-label">Name:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Wallet's name">
+                                </div>
+                                <div class="mb-3">
+                                    <label  class="col-form-label">Money amount:</label>
+                                    <input type="number" class="form-control" id="moneyAmount" placeholder="Money amount">
+                                </div>
+                                <div>
+                                    <label class="col-form-label">Money's type:</label>
+                                    <select class="form-select category-type" aria-label="Default select example" id="moneyType">
+                                        <option selected>Choose Money Type...</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="addWallet()" id="create-btn">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -363,6 +453,7 @@
     <script src="index.js"></script>
 <script src="../login/login.js"></script>
     <script src="../transaction/transaction.js"></script>
+    <script src="../wallet/wallet.js"></script>
 </body>
 
 </html>

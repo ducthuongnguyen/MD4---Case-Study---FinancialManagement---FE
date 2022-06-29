@@ -1,14 +1,21 @@
 function findAllWallet() {
+    let token = window.sessionStorage.getItem("TOKEN_KEY");
+    let IdUser = window.sessionStorage.getItem("IDUSER_KEY");
     $.ajax({
+        headers: {
+            Authorization: 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         type: "GET",
-        url: "http://localhost:8081/wallets",
+        url: "http://localhost:8081/wallets/findByUser/"+IdUser,
         success: function (data) {
             let content = ``;
             for (let i = 0; i < data.length; i++) {
-        //         content += `<tr>
-        //     <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
-        //     <td>${data[i].moneyAmount}</a></td>
-        // </tr>`;
+                //         content += `<tr>
+                //     <td><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></td>
+                //     <td>${data[i].moneyAmount}</a></td>
+                // </tr>`;
                 content += `  <div  class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
                         <ul class="list-inline two-part d-flex align-items-center mb-0">
@@ -37,9 +44,32 @@ function findAllWallet() {
     })
 }
 
-function showCreateForm() {
+function findAllTransactionByWallet(id) {
+
     $.ajax({
-        type: "GET", url: "http://localhost:8081/wallets",
+        type: "GET",
+        url: "http://localhost:8081/wallets/transaction-by-wallet/" + id,
+        success: function (data) {
+            localStorage.setItem("data", JSON.stringify(data));
+            window.location.href = "../transaction/transaction.html"
+        }, error: function (error) {
+            console.log(error);
+        }
+    })
+
+}
+
+function showCreateForm() {
+    let token = window.sessionStorage.getItem("TOKEN_KEY");
+    let IdUser = window.sessionStorage.getItem("IDUSER_KEY");
+    $.ajax({
+        headers: {
+            Authorization: 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8081/wallets/findByUser/"+IdUser,
         success: function (wallet) {
             let content = "";
             for (let i = 0; i < wallet.length; i++) {
@@ -158,11 +188,10 @@ function createNewTransaction() {
                                 url: "http://localhost:8081/wallets/editWallet/" + id,
                                 data: JSON.stringify(pro),
                                 success: function () {
-                                    console.log("check")
-                                    // findAllTransaction();
-                                    findAllTransactionByWallet(idWallet)
+
+                                    findAllTransactionByWallet(id)
                                     findAllWallet();
-                                    findAllWallet(idWallet);
+                                    findAllWallet(id);
                                 },
                                 error: function (error) {
                                     console.log(error)
@@ -232,9 +261,9 @@ function getTransaction(transaction) {
     str += `<td>${transaction.createdDate}</td>
             <td>${transaction.note}</td>
             <td>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo" onclick="showEditForm(${transaction.id})"><i class="bi bi-pen-fill"></i></button>
+            <button type="button" class="btn d-grid btn-success text-white" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo" onclick="showEditForm(${transaction.id})"><i class="bi bi-pen-fill"></i></button>
                 </td>
-            <td><button type="button" class="btn btn-success" onclick="deleteTransaction(${transaction.id})"><i class="bi bi-trash3-fill"></i></button></td>
+            <td><button type="button" class="btn d-grid btn-success text-white" onclick="deleteTransaction(${transaction.id})"><i class="bi bi-trash3-fill"></i></button></td>
         </tr>`
     return str;
 }
@@ -364,7 +393,7 @@ function getIncome1() {
     $.ajax({
         type: "GET", url: "http://localhost:8081/categories/getChildCategory/2", success: function (child2) {
             let str = `<div class="input-group mb-3">
-                                        <span class="input-group-text">Giảm</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"childCategory2\">` + getCategory(child2) + `</select>` + `</div>`;
+                                        <span class="input-group-text">Giảm</span>` + `<select class=\"form-select\" aria-label=\"Default select example\" id=\"childCategory1\">` + getCategory(child2) + `</select>` + `</div>`;
             document.getElementById("showCategory1").innerHTML = str;
         }
     })
@@ -460,24 +489,7 @@ function update(id) {
 
 findAllWallet();
 
-function findAllTransactionByWallet(id) {
-    // $.ajax({
-    //     type: "GET",
-    //     url: "http://localhost:8081/wallets" + id,
-    //     success: function (wallet) {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8081/wallets/transaction-by-wallet/" + id,
-        success: function (data) {
-            // localStorage.setItem("data", JSON.stringify(wallet));
-            localStorage.setItem("data", JSON.stringify(data));
-            window.location.href = "../transaction/transaction.html"
-        }, error: function (error) {
-            console.log(error);
-        }
-    })
 
-}
 
 function findAllByDateBetween() {
     document.getElementById("outflow").innerHTML = "";
@@ -542,6 +554,51 @@ function findAllWallet1() {
             console.log(error);
         }
     })
+}
+function addWallet() {
+    $('#editWallet').modal('hide');
+    let IdUser = window.sessionStorage.getItem("IDUSER_KEY");
+    let token = window.sessionStorage.getItem("TOKEN_KEY");
+    console.log("a==", token)
+    console.log("id=", IdUser)
+    let name = $("#name").val();
+    let icon = $("#icon").val();
+    let moneyAmount = $("#moneyAmount").val();
+    let moneyType = $("#moneyType").val();
+    let appUser = IdUser;
+    let obj = {
+        name: name,
+        icon: icon,
+        moneyType: {
+            id: moneyType
+        },
+        moneyAmount: moneyAmount,
+        appUser: {
+            id: appUser
+        }
+    }
+    $.ajax({
+        headers: {
+            Authorization: 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "http://localhost:8081/wallets/create-wallet",
+        data: JSON.stringify(obj),
+        success: function (data) {
+            console.log(data)
+            alert("Create successfully!")
+            showListWallet()
+            findAllWallet();
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+
+    });
+
 }
 
 

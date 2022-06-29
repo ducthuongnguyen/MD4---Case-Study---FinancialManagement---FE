@@ -52,14 +52,14 @@ function signUp() {
     signUpForm.password = $('#password').val();
     signUpForm.roles = ["user"];
     let signUpFormOBJ = JSON.stringify(signUpForm);
-    console.log('signUpFormOBJ === ', signUpFormOBJ)
+    // console.log('signUpFormOBJ === ', signUpFormOBJ)
     $.ajax({
         url: 'http://localhost:8081/users/signup',
         method: 'POST',
         data: signUpFormOBJ,
         contentType: 'application/json; charset=utf8',
         success: function (data) {
-            console.log('data ===', data);
+            // console.log('data ===', data);
             if (JSON.stringify(data) == JSON.stringify(noUser)) {
                 document.getElementById('status').innerHTML = 'The username is existed! Please try again!'
                 document.getElementById("status").style.color = "red";
@@ -97,11 +97,14 @@ function changePassword(){
             console.log('data ===', data);
             if (JSON.stringify(data) == JSON.stringify(no)) {
                 console.log("failed")
-                document.getElementById('status').innerHTML = 'Failed to change password!'
+                document.getElementById('status').innerHTML = 'Old password is not correct! Please try again!'
             }
             if (JSON.stringify(data) == JSON.stringify(yes)) {console.log("success")
-                document.getElementById('status').innerHTML = 'Change password successfully!'
+                // document.getElementById('status').innerHTML = 'Change password successfully!'
+                alert("Change password successfully!")
+                window.location.href = "../home/index.html"
             }
+
         }
     })
 }
@@ -109,3 +112,8 @@ function changePassword(){
 function showFormChangePassword(){
     window.location.href = '../login/changePassword.html';
 }
+function logOut(){
+    window.sessionStorage.clear();
+    window.location.href = '../login/login.html'
+}
+

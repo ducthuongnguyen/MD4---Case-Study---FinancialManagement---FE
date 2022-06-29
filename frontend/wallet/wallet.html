@@ -130,8 +130,8 @@
                     <!-- ============================================================== -->
                     <li>
                         <a class="profile-pic" href="#">
-                            <img src="../../plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                 class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                            <img src="https://pdp.edu.vn/wp-content/uploads/2021/01/hinh-anh-cute-de-thuong.jpg" alt="user-img" width="36"
+                                 class="img-circle"><span class="text-white font-medium" id="renameUser">Steave</span></a>
                     </li>
                     <!-- ============================================================== -->
                     <!-- User profile and search -->
@@ -168,17 +168,13 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../wallet/wallet.html"
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
                            aria-expanded="false">
                             <i class="fa fa-table" aria-hidden="true"></i>
                             <span class="hide-menu">Wallet</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <!--                            <ul class="dropdown">-->
-                        <!--                                <li><a href="/PlaylistServlet">Show my expense categories</a></li>-->
-                        <!--                                <li><a href="/PlaylistServlet">Add mycategory</a></li>-->
-                        <!--                            </ul>-->
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../mycategory/mycategory.html"
                            aria-expanded="false">
                             <i class="fa fa-globe" aria-hidden="true"></i>
@@ -201,7 +197,7 @@
                     </li>
                     <li class="text-center p-20 upgrade-btn">
                         <a href="https://www.wrappixel.com/templates/ampleadmin/"
-                           class="btn d-grid btn-success text-white" target="_blank">
+                           class="btn d-grid text-white" id="updateToPro" target="_blank">
                             Upgrade to Pro</a>
                     </li>
                 </ul>
@@ -257,40 +253,34 @@
                         <h3 class="box-title">List Wallet</h3>
                         <div class="container">
                             <div class="row">
-                                <!-- Button trigger modal -->
-                                <!--                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"-->
-                                <!--                                        data-bs-target="#editWallet">-->
-                                <!--                                    Add Wallet-->
-                                <!--                                </button>-->
                                 <!-- Modal Edit-->
                                 <div class="modal fade" id="editWallet" tabindex="-1"
                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="">Edit Wallet</h5>
+                                                <h5 class="modal-title">Edit Wallet</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="../../img/cute123.jpg">
-                                            </div>
-                                            <div class="col-md-6 col-lg-6 block-contact">
                                                 <form>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="idEdit" hidden>
+                                                    <div class="mb-3">
+                                                        <input type="hidden" class="form-control" id="idEdit"
+                                                               placeholder="Wallet's name">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="nameEdit">
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label">Name:</label>
+                                                        <input type="text" class="form-control" id="nameEdit"
+                                                               placeholder="Wallet's name">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="iconEdit">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="moneyAmountEdit">
+                                                    <div class="mb-3">
+                                                        <label class="col-form-label">Money amount:</label>
+                                                        <input type="number" class="form-control" id="moneyAmountEdit"
+                                                               placeholder="Money amount">
                                                     </div>
                                                     <div>
-                                                        <label class="col-form-label">Money type:</label>
+                                                        <label class="col-form-label">Money's type:</label>
                                                         <select class="form-select category-type"
                                                                 aria-label="Default select example" id="moneyTypeEdit">
                                                             <option selected>Choose Money Type...</option>
@@ -299,64 +289,110 @@
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success" pull-left onclick="editWallet()">Submit</button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary" onclick="editWallet()">
+                                                    Update
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <!--Modal create-->
-                            <div class="modal fade" id="addWallet" tabindex="-1"
-                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!--                            <div class="modal fade" id="addWallet" tabindex="-1"-->
+                            <!--                                 aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+                            <!--                                <div class="modal-dialog">-->
+                            <!--                                    <div class="modal-content">-->
+                            <!--                                        <div class="modal-header">-->
+                            <!--                                            <h5 class="modal-title" id="exampleModalLabel">Add Wallet</h5>-->
+                            <!--                                            <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+                            <!--                                                    aria-label="Close"></button>-->
+                            <!--                                        </div>-->
+                            <!--                                        <div class="modal-body">-->
+                            <!--                                            <img src="../../img/cute123.jpg">-->
+                            <!--                                        </div>-->
+                            <!--                                        <div class="col-md-6 col-lg-6 block-contact">-->
+                            <!--                                            <form>-->
+                            <!--                                                <div class="form-group">-->
+                            <!--                                                    <input type="text" class="form-control" placeholder="Name"-->
+                            <!--                                                           id="name">-->
+                            <!--                                                </div>-->
+                            <!--                                                <div class="form-group">-->
+                            <!--                                                    <input type="text" class="form-control" placeholder="Icon"-->
+                            <!--                                                           id="icon">-->
+                            <!--                                                </div>-->
+                            <!--                                                <div class="form-group">-->
+                            <!--                                                    <input type="number" class="form-control" placeholder="Money Amount"-->
+                            <!--                                                           id="moneyAmount">-->
+                            <!--                                                </div>-->
+                            <!--                                                &lt;!&ndash;                                                <div class="form-group">&ndash;&gt;-->
+                            <!--                                                &lt;!&ndash;                                                    <input type="number" class="form-control" placeholder="User ID"&ndash;&gt;-->
+                            <!--                                                &lt;!&ndash;                                                           id="appUser">&ndash;&gt;-->
+                            <!--                                                &lt;!&ndash;                                                </div>&ndash;&gt;-->
+                            <!--                                                <div>-->
+                            <!--                                                    <label class="col-form-label">Money type:</label>-->
+                            <!--                                                    <select class="form-select category-type"-->
+                            <!--                                                            aria-label="Default select example" id="moneyType">-->
+                            <!--                                                        <option selected>Choose Money Type...</option>-->
+                            <!--                                                    </select>-->
+                            <!--                                                </div>-->
+
+
+                            <!--                                            </form>-->
+                            <!--                                        </div>-->
+                            <!--                                        <div class="modal-footer">-->
+                            <!--                                            <button type="submit" class="btn btn-success" pull-left-->
+                            <!--                                                    onclick="addWallet()">Submit-->
+                            <!--                                            </button>-->
+                            <!--                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">-->
+                            <!--                                                Close-->
+                            <!--                                            </button>-->
+                            <!--                                            &lt;!&ndash;                                                <button type="button" class="btn btn-primary">Save changes</button>&ndash;&gt;-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                            <div class="modal fade" id="addWallet" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add Wallet</h5>
+                                            <h5 class="modal-title">Create Wallet</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <img src="../../img/cute123.jpg">
-                                        </div>
-                                        <div class="col-md-6 col-lg-6 block-contact">
                                             <form>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Name"
-                                                           id="name">
+                                                <div class="mb-3">
+                                                    <label class="col-form-label">Name:</label>
+                                                    <input type="text" class="form-control" id="name"
+                                                           placeholder="Wallet's name">
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Icon"
-                                                           id="icon">
+                                                <div class="mb-3">
+                                                    <label class="col-form-label">Money amount:</label>
+                                                    <input type="number" class="form-control" id="moneyAmount"
+                                                           placeholder="Money amount">
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="number" class="form-control" placeholder="Money Amount"
-                                                           id="moneyAmount">
-                                                </div>
-                                                <!--                                                <div class="form-group">-->
-                                                <!--                                                    <input type="number" class="form-control" placeholder="User ID"-->
-                                                <!--                                                           id="appUser">-->
-                                                <!--                                                </div>-->
                                                 <div>
-                                                    <label class="col-form-label">Money type:</label>
+                                                    <label class="col-form-label">Money's type:</label>
                                                     <select class="form-select category-type"
                                                             aria-label="Default select example" id="moneyType">
                                                         <option selected>Choose Money Type...</option>
                                                     </select>
                                                 </div>
-
-
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success" pull-left
-                                                    onclick="addWallet()">Submit
-                                            </button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Close
                                             </button>
-                                            <!--                                                <button type="button" class="btn btn-primary">Save changes</button>-->
+                                            <button type="button" class="btn btn-primary" onclick="addWallet()"
+                                                    id="create-btn">Create
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -437,6 +473,8 @@
 <script src="../../js/teacher/showListClass.js"></script>
 <script src="wallet.js"></script>
 <script src="../transaction/transaction.js"></script>
+<script src="../home/index.js"></script>
+<script src="../login/login.js"></script>
 </body>
 
 </html>

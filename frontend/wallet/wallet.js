@@ -3,8 +3,8 @@ function displayTable(data) {
     for (let i = 0; i < data.length; i++) {
         content += `<tr>
                        <th scope="row">${i + 1}</th>
-                       <th><a href="#" onclick="findAllTransactionByWallet(${data[i].id})">${data[i].name}</a></th>
-                       <td>${data[i].moneyAmount}</td>
+                       <th><a href="#" >${data[i].name}</a></th>
+                       <td>${data[i].moneyAmount.toLocaleString()}</td>
                        <td>${data[i].moneyType.name}</td>
                        <td>
                             <button type="button" class="btn btn-success" onclick="showEditWallet(${data[i].id})"><i class="bi bi-pen-fill"></i></button>
@@ -105,6 +105,7 @@ function showListWallet() {
     })
 }
 
+
 function getMoneyType() {
     let content = "<option selected>Choose Money Type...</option>";
     $.ajax({
@@ -144,49 +145,7 @@ function getMoneyTypeEdit() {
 getMoneyTypeEdit();
 
 
-function addWallet() {
-    $('#editWallet').modal('hide');
-    let IdUser = window.sessionStorage.getItem("IDUSER_KEY");
-    let token = window.sessionStorage.getItem("TOKEN_KEY");
-    console.log("a==", token)
-    console.log("id=", IdUser)
-    let name = $("#name").val();
-    let icon = $("#icon").val();
-    let moneyAmount = $("#moneyAmount").val();
-    let moneyType = $("#moneyType").val();
-    let appUser = IdUser;
-    let obj = {
-        name: name,
-        icon: icon,
-        moneyType: {
-            id: moneyType
-        },
-        moneyAmount: moneyAmount,
-        appUser: {
-            id: appUser
-        }
-    }
-    $.ajax({
-        headers: {
-            Authorization: 'Bearer ' + token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "POST",
-        url: "http://localhost:8081/wallets/create-wallet",
-        data: JSON.stringify(obj),
-        success: function (data) {
-            console.log(data)
-            alert("Create successfully!")
-            showListWallet()
-        },
-        error: function (error) {
-            console.log(error)
-        }
 
-    });
-
-}
 
 function deleteWallet(id) {
     let token = window.sessionStorage.getItem("TOKEN_KEY");
